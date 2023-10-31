@@ -17,6 +17,6 @@ const SavingSchema = new mongoose.Schema({
   },
 });
 
-const Saving = mongoose.model('Savings', SavingSchema);
+const Saving = mongoose.model('Saving', SavingSchema);
 
 module.exports = Saving;

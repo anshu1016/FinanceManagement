@@ -1,14 +1,14 @@
 // api.js
 const express = require('express');
 const savingRouter = express.Router();
-const Transaction = require('./transactionModel');
+const Saving = require('../model/saving.model.js');
 
 // Create a new transaction
   savingRouter.post('/', async (req, res) => {
   try {
-    const transaction = new Transaction(req.body);
-    await transaction.save();
-    res.status(201).json(transaction);
+    const saving = new Saving(req.body);
+    await saving.save();
+    res.status(201).json(saving);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -17,8 +17,8 @@ const Transaction = require('./transactionModel');
 // Get all transactions
   savingRouter.get('/', async (req, res) => {
   try {
-    const transactions = await Transaction.find();
-    res.json(transactions);
+    const savings = await Saving.find();
+    res.json(savings);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -27,11 +27,11 @@ const Transaction = require('./transactionModel');
 // Get a specific transaction by ID
   savingRouter.get('/getSaving/:id', async (req, res) => {
   try {
-    const transaction = await Transaction.findById(req.params.id);
-    if (!transaction) {
+    const savings = await Saving.findById(req.params.id);
+    if (!savings) {
       return res.status(404).json({ error: 'Transaction not found' });
     }
-    res.json(transaction);
+    res.json(savings);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -40,15 +40,15 @@ const Transaction = require('./transactionModel');
 // Update a specific transaction by ID
   savingRouter.put('/:id', async (req, res) => {
   try {
-    const updatedTransaction = await Transaction.findByIdAndUpdate(
+    const updatedSaving = await Saving.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    if (!updatedTransaction) {
-      return res.status(404).json({ error: 'Transaction not found' });
+    if (!updatedSaving) {
+      return res.status(404).json({ error: 'Saving not found' });
     }
-    res.json(updatedTransaction);
+    res.json(updatedSaving);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -57,11 +57,11 @@ const Transaction = require('./transactionModel');
 // Delete a specific transaction by ID
   savingRouter.delete('/:id', async (req, res) => {
   try {
-    const deletedTransaction = await Transaction.findByIdAndRemove(req.params.id);
-    if (!deletedTransaction) {
-      return res.status(404).json({ error: 'Transaction not found' });
+    const deletedSaving = await Saving.findByIdAndRemove(req.params.id);
+    if (!deletedSaving) {
+      return res.status(404).json({ error: 'Saving not found' });
     }
-    res.json(deletedTransaction);
+    res.json(deletedSaving);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
