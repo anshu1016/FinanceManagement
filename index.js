@@ -9,7 +9,7 @@ const PORT = 3000;
 const initializeDatabase = require("./db.js");
 const incomeRouter = require("./router/income.router.js");
 const { expenseRouter } = require("./router/expense.router.js");
-
+const savingRouter = require("./router/saving.router.js")
 
 initializeDatabase();
 
@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use("/incomes", incomeRouter);
 app.use("/expenses", expenseRouter);
-
+app.use("/savings",savingRouter)
 // Error Handler Middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
